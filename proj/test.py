@@ -1,5 +1,3 @@
-def testmodule():
-    print('Hi')
-    a = 't'
-
-    return a
+def hello(a):
+    for i in rnage(0, 10):
+        print(a)
