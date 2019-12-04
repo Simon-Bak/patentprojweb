@@ -3,7 +3,7 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from django.shortcuts import redirect
-from . import test2
+from . import patent
 
 # Create your views here.
 def post_list(request):
@@ -44,4 +44,6 @@ def post_edit(request, pk):
 def test(request):
     tests = test2.hello('hah')
     testvalue = [['hi'], ['bye']]
+
+    
     return render(request, 'proj/test2.html', {'tests' : testvalue})
