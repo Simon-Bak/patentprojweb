@@ -43,4 +43,5 @@ def post_edit(request, pk):
 
 def test(request):
     tests = test2.hello('hah')
-    return render(request, 'proj/test2.html', {'tests' : tests})
+    testvalue = [['hi'], ['bye']]
+    return render(request, 'proj/test2.html', {'tests' : testvalue})
