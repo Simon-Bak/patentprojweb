@@ -42,8 +42,12 @@ def post_edit(request, pk):
     return render(request, 'proj/post_edit.html', {'form': form})
 
 def test(request):
-    tests = test2.hello('hah')
-    testvalue = [['hi'], ['bye']]
+    if request.method == 'POST':
+        forms = FormTest(request.POST)
 
+        if forms.is_valid():
+            return HttpResponseRedirect('/thanks/')
+        else:
+            forms = FormTest()
     
-    return render(request, 'proj/test2.html', {'tests' : testvalue})
+    return render(request, 'proj/test2.html', {'forms':forms})

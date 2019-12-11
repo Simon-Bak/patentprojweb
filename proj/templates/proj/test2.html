@@ -1,7 +1,9 @@
 {% extends 'proj/base.html' %}
 
 {% block content %}
-        <div class="tests">
-                <h1>{{ tests }}
-        </div>
+        <form action="/test/" method="post">
+           {% csrf_token %}
+            {{ forms }}
+            <input type='submit' value="Submit">
+</form>
 {% endblock %}
