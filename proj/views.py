@@ -4,6 +4,7 @@ from .models import Post
 from .forms import PostForm
 from django.shortcuts import redirect
 from . import patent
+from . import demo
 
 # Create your views here.
 def post_list(request):
@@ -42,8 +43,8 @@ def post_edit(request, pk):
     return render(request, 'proj/post_edit.html', {'form': form})
 
 def test(request):
-    tests = test2.hello('hah')
-    testvalue = [['hi'], ['bye']]
-
-    
+    patentlist = demo.filetoList()
+    testvalue = demo.GrantYear(patentlist)
+    imageName = demo.grantYearGraph(testvalue)
+    imageName = 'patent/static/img/'+imageName
     return render(request, 'proj/test2.html', {'tests' : testvalue})
