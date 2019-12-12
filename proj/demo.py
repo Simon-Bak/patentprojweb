@@ -2,7 +2,7 @@ def filetoList():
     import requests
     import pandas as pd
     
-    nameCSV = 'proj/static/csv/ARGoogle.csv'
+    nameCSV = '/home/simonbak/patentprojweb/proj/static/csv/ARGoogle.csv'
     csvValue = pd.read_csv(nameCSV, skiprows=1)
     patentList = csvValue[['id', 'title', 'assignee', 'inventor/author', 'priority date', 'filing/creation date', 'publication date', 'grant date', 'representative figure link']].as_matrix()
     return patentList
