@@ -1,9 +1,9 @@
 {% extends 'proj/base.html' %}
 
 {% block content %}
+{% load staticfiles %}
         <div class="tests">
-                {{ tests }}
-                <img src='{{ tests }}'>
+                <img src="{% static tests %}" width="100px">
         </div>
 
 {% endblock %}

@@ -46,5 +46,5 @@ def test(request):
     patentlist = demo.filetoList()
     testvalue = demo.GrantYear(patentlist)
     imageName = demo.grantYearGraph(testvalue)
-    imageName = 'patent/static/img/'+imageName
-    return render(request, 'proj/test2.html', {'tests' : testvalue})
+    imageName = 'img/'+ imageName
+    return render(request, 'proj/test2.html', {'tests' : imageName})

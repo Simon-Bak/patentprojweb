@@ -159,8 +159,10 @@ def Portfolio(X):
 def grantYearGraph(array):
     import matplotlib.pyplot as plt
     from django.utils import timezone
-
-    pltname = str(timezone.now())+'.png'
+    time = str(timezone.now())
+    temp = len(time)
+    timeslice = time[0:19]
+    pltname = timeslice+'.png'
 
 
     X = []
@@ -177,7 +179,7 @@ def grantYearGraph(array):
     plt.ylabel('Num')
     
     plt.title('Grant Num of Year')
-    plt.savefig('patent/static/img/'+pltname)
+    plt.savefig('proj/static/img/'+pltname)
     return pltname
 
 def grantPersonGraph(array, i):
