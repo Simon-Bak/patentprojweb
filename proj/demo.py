@@ -179,7 +179,7 @@ def grantYearGraph(array):
     plt.ylabel('Num')
     
     plt.title('Grant Num of Year')
-    plt.savefig('/home/simonbak/patentprojweb/proj/static/csv'+pltname)
+    plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
     return pltname
 
 def grantPersonGraph(array, i):
