@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/proj.css' %}">
+        
     </head>
     <body>
             <div class="page-header">
@@ -21,7 +22,28 @@
                     {% endblock %}
                     </div>
                 </div>
-                <a href="{% url 'test' %}"><h1>hi</h1></a>
+
+                {% load staticfiles %}
+                <a href="{% url 'test' %}" id='test'><h1>hi</h1></a>
+                <img width="100px" id = 'pic'>
             </div>
+        
+        <script src='https://code.jqeury.com/jquery-3.2.1.min.js'></script>
+        <script type = 'text/javascript'>
+            $('#test').click(function){
+                $.ajax({
+                    url : "{% url 'test' %}",
+                    success : function(response){
+                        alert('분석이 완료되었습니다');
+                        $(#pic).attr("src", response.url);
+
+                    },
+                });
+            }
+        
+        
+        </script>
+      
+
         </body>
 </html>

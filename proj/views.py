@@ -47,4 +47,7 @@ def test(request):
     testvalue = demo.GrantYear(patentlist)
     imageName = demo.grantYearGraph(testvalue)
     imageName = 'img/'+ imageName
-    return render(request, 'proj/test2.html', {'tests' : imageName})
+    tests = {
+        'url' : "{% static" + imageName + "%}"
+    }
+    return HttpResponse(json.dumps(tests), content_type='application/json')
