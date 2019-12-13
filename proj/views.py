@@ -46,8 +46,8 @@ def result(request):
     grantperson = patent.GrantPerson(plist)
 
     yearimageName = patent.grantYearGraph(grantyear)
-    personimageName, X = patent.grantPersonGraph(grantperson, 5)
+    personimageName, personName = patent.grantPersonGraph(grantperson, 5)
     portName = 'img/' + portName
     yearimageName = 'img/' + yearimageName
     personimageName = 'img/' + personimageName
-    return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName, 'yearsrc':yearimageName, 'personsrc' : personimageName, 'person' : grantperson})
+    return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName, 'yearsrc':yearimageName, 'personsrc' : personimageName, 'person' : personName})
