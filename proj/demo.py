@@ -141,7 +141,7 @@ def Portfolio(X):
 
     plt.rcParams["figure.figsize"] = (15,10)
     plt.rcParams['lines.linewidth'] = 1
-    plt.rcParams.update({'font.size': 20})
+    plt.rcParams.update({'font.size': 10})
     plt.plot(X1, Y1, linestyle='--', marker='o', color='#ff6600', label = Period1)
     plt.plot(X2, Y2, linestyle='--', marker='.', color='#DD6969', label = Period2)
     plt.plot(X3, Y3, linestyle='--', marker='v', color='#0073BD', label = Period3)
