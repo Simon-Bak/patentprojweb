@@ -46,7 +46,7 @@ def result(request):
     grantperson = patent.GrantPerson(plist)
 
     yearimageName = patent.grantYearGraph(grantyear)
-    personimageName = patent.grantPersonGraph(grantperson, 5)
+    personimageName, X = patent.grantPersonGraph(grantperson, 5)
     portName = 'img/' + portName
     yearimageName = 'img/' + yearimageName
     personimageName = 'img/' + personimageName

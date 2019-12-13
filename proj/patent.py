@@ -223,4 +223,4 @@ def grantPersonGraph(array, i):
     plt.title('inventor')
     plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
     plt.clf()
-    return pltname
+    return pltname, X
