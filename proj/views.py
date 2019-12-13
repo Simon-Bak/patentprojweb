@@ -1,46 +1,46 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Post
-from .forms import PostForm
+from .models import URL
+from .forms import URLForm
 from django.shortcuts import redirect
+from django.http import HttpResponse
 from . import patent
 from . import demo
+import json
 
 # Create your views here.
-def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'proj/post_list.html', {'posts' : posts})
+def index(request):
+    return render(request, 'proj/index.html')
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'proj/post_detail.html', {'post':post})
+def main(request):
+    return render(request, 'proj/main.html')
 
-def post_new(request):
+def info(request):
+    return render(request, 'proj/tech.html')
+
+def demourl(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm()
-    return render(request, 'proj/post_edit.html', {'form':form})
+        word0 = request.POST['word0']
+        word1 = request.POST['word1']
+        word2 = request.POST['word2']
+        wordandor01 = request.POST['wordandor01']
+        wordandor02 = request.POST['wordandor02']
+        
+        status = request.POST['status']
+        country = request.POST['country']
 
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'proj/post_edit.html', {'form': form})
+        person0 = request.POST['person0']
+        person1 = request.POST['person1']
+        person2 = request.POST['person2']
+        personandor1 = request.POST['personandor0']
+        personandor2 = request.POST['personandor1']
+
+        return render(request, 'proj/index.html')
+
+    return render(request, 'proj/demourl.html')
+
+def demo(request):
+    return render(request, 'proj/index.html')
 
 def test(request):
     patentlist = demo.filetoList()
@@ -51,3 +51,4 @@ def test(request):
         'url' : "{% static" + imageName + "%}"
     }
     return HttpResponse(json.dumps(tests), content_type='application/json')
+   

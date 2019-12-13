@@ -1,12 +1,9 @@
 from django import forms
 
-from .models import Post
+from .models import URL
 
-class PostForm(forms.ModelForm):
-
+class URLForm(forms.ModelForm):
     class Meta:
-        model = Post
-        fields = ('title', 'text',)
-
-class FormTest(forms.Form):
-    hi = forms.CharField(label='HI')
+        model = URL
+        fields = ('searchWord1', 'searchWord2', 'searchWord3', 'WordAndOR1', 'WordAndOR2', 'Country', 'Status', 'searchInventor1', 'searchInventor2', 
+    'searchInventor3','InvAndOR1','InvAndOR2',)

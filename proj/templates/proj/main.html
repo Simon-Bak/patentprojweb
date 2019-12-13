@@ -1,0 +1,163 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>Main</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container" id="nav">
+      <nav
+        class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary"
+        id="navbar"
+      >
+        <a class="navbar-brand" href="{% url 'main' %}" id="logo">Python Patent</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'main' %}">프로젝트 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'info' %}">Python Patent 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'demourl' %}">데모</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">테스트</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div id="contentarea">
+      <div class="row">
+        <div class="col-6">
+          <div
+            data-spy="scroll"
+            data-target="#list-example"
+            data-offset="0"
+            class="scrollspy-example"
+          >
+            <br />
+            <h2>
+              <span class="badge badge-pill badge-primary">선정이유</span>
+            </h2>
+            <h4 id="title3">왜 특허분석인가?</h4>
+            <p>
+              현재 특허를 분석하기 위한 방법은 현재 엑셀에만 한정되어있다.
+              PIAS와 같은 전문적인 소프트웨어가 있지만, 일반인이 접근하기에는
+              한계가 있다.
+            </p>
+            <p>
+              하지만, KIPRIS 등 현 특허 검색 포털에서는 가장 중요한 특허 분석을
+              제공하고 있지 않다. COMPAS와 같이 미국 특허를 분석해주는 서비스를
+              운영하고 있으나, 대중적이지 않다.
+            </p>
+            <p>
+              따라서, 본 텀프로젝트에서는 사용자가 원하는 특허 정보를 검색하였을
+              때 파이썬을 통해 데이터를 자동으로 분석하는 프로그램을 구현하고자
+              한다.
+            </p>
+            <h4 id="ar-">AR 선정이유</h4>
+            <p>
+              그리고 위에서 추출한 데이터를 기반으로 AR과 관련한 특허와
+              기술분야를 분석하고자한다. 해당 분야를 선택한 이유는 다음과
+              같다.<br />
+            </p>
+            <h4 id="-">떠오르는 기술</h4>
+            <p>
+              현재 테크 분야에서 가장 뜨거운 분야 중 하나는 바로 AR이다. Apple과
+              Google 등 수많은 테크 기업에서 VR과 AR을 주목하고 있다. AR을 더욱
+              쉽게 개발할 수 있는 다양한 개발킷 - Apple의 AR Kit - 이 계속해서
+              공개되고 있다.<br />
+              따라서 AR과 관련한 특허를 분석하여 앞으로의 트렌드를 예측하고,
+              VR과 비교하여 기술적인 완성도를 예측하고자 한다.
+            </p>
+            <h2>
+              <span class="badge badge-pill badge-primary"
+                >가설 및 목표 기능</span
+              >
+            </h2>
+            <h4 id="-1-ar-">
+              가설 1 : AR관련 특허의 출원 건수는 매해 증가 중이다.
+            </h4>
+            <p>
+              최근들어 글로벌 IT 기업들이 차세대 &#39;스마트폰&#39;으로 AR을
+              지목하여, 지속적으로 관련 제품 혹은 개발 킷을 공개하고 있다.
+              대표적으로 Apple의 AR Kit등 수많은 AR 라이브러리들이 공개되고
+              있다. 따라서, AR에 대한 관심 증가와 연구 개발이 더 되고 있을
+              것이라 생각하여 AR관련 특허의 출원건수가 매해 증가하고 있을
+              것이라고 예측한다.
+            </p>
+            <h4 id="-2-ar-vr-">
+              가설 2 : AR관련 특허와 VR관련 특허의 상관도는 밀접하다.
+            </h4>
+            <p>
+              2014~2015년 경, VR이 트렌드로 떠오르고 많은 스타트업과 테크
+              기업에서 관련한 제품을 출시하는 시기가 있었다. 그리고 2018 ~
+              2019년 부터 급격하게 AR이 트렌드로 떠오르고 있다. 두 기술은 엄연히
+              다른 분야이지만, 관련된 배경기술이 유사하고, UX가 비슷하다는
+              점에서 공통점이 있다.<br />
+              따라서, VR과 AR의 특허를 분석하여 이들을 비교하고자 한다. 이를
+              통해서 AR 관련 기술이 어느정도에 도달하였는지, 기술 성숙도 등을
+              측정하여 위의 가설을 비교하고자 한다.
+            </p>
+            <h4 id="-1-">기능1 : 특허별 인용/피인용 지수</h4>
+            <p>
+              논문과 마찬가지로, 특허의 &#39;질&#39;을 판단하는 기준 중 하나를
+              다른 특허에서 얼마나 피인용 되었는 지 분석하는 것이다. 따라서 구글
+              특허에 나와 있는 인용(citation) 및 피인용(cited) 데이터를 이용, 각
+              특허간의 인용 및 피인용 관계를 파악하는 기능을 만들고자 한다.
+            </p>
+            <h4 id="-2-">기능2 : 인용/피인용 맵 작성</h4>
+            <p>
+              기능1에서 생성한 인용/피인용 데이터를 시각화 하는 인용/피인용 맵을
+              생성하는 기능이다.<br />
+              인용/피인용 관계는 특허간의 Bridge로 나타내며, 피인용을 더 많이 할
+              수록 큰 사이즈로 표현하는 것을 목표로 한다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

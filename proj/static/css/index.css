@@ -1,0 +1,24 @@
+#jumbotron
+{
+    padding-top : 10vh;
+    height: 100vh;
+    background-color: white;
+    overflow-y: hidden; overflow-x: hidden;
+    background-size: cover;
+}
+#content
+{
+    padding-top: 20vh;
+    padding-bottom: 30vh;
+    overflow-y: hidden; overflow-x: hidden;
+}
+h1
+{
+   font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+}
+#logo
+{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
