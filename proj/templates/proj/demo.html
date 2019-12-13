@@ -1,0 +1,78 @@
+{% load static %}
+<html>
+    <head>
+        <title>특허분석</title>
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        <div class="container" id="nav">
+      <nav
+        class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary"
+        id="navbar"
+      >
+        <a class="navbar-brand" href="{% url 'index' %}" id="logo">Python Patent</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'main' %}">프로젝트 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'info' %}">Python Patent 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'demo' %}">예시</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'testurl' %}">테스트</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+        <div id='contentarea'>
+            <h1><span class="badge badge-pill badge-primary">특허분석 예시</span></h1>
+            <p>이 예시에서는 Google Patent의 AR 검색 데이터를 토대로 분석하였습니다.</p>
+            
+            <div id='area'>
+            <h4 >연도별 출원수 분석</h4>
+            <img src = '{% static "img/grantyear.png" %}' width="800">
+            <p>
+                    위의 특허 분석을 통해 도출한, 연도별 특허 출원은 증가하였다가 하향추세에 있다고 할 수 있다.
+                    <br>
+                    <br>
+2005년에 출원수가 최대치를 기록하긴 하였지만, 이후에도 꾸준히 매년 AR과 관련한 특허가 100건이상 출원되고 있다. 또한, 이른바 AR/VR 붐이라고 불리었던 2014-2015년경 출원 건수가 증가하였다. 하지만 그 이후에는 AR/VR 기술의 발전과 그 유즈케이스가 사람들의 기대를 충족하지 못하여, 출원 건수가 하향 추세에 있다.
+<br>
+하지만 여기서 짚고 넘어가야 할 점은 특허는 출원 이후 공지가 곧바로 되지 않는다는 것이다. 2015년의 하향 추세 이후 다시 AR붐이 일어나기 시작한것은 2018년 즈음이다. 따라서 그 이후 출원된 특허에 대한 데이터가 현 시점에서 부족하다는 문제가 있다. 따라서 만약 내년 혹은 그 이후에 다시 이 분석을 진행한다면, 그 결과는 다를 수도 있다.
+<br>
+            </p>
+            <h4> 기술성숙도 분석
+            </h4>
+            <img src = '{% static "img/portfolio.png" %}' width="800">
+                <p>
+                        <br>
+                        AR 기술의 경우에는 위와 같이 태풍기, 발전기, 성숙기까지는 일반적인 모델과 같은 그래프를 보였다. 하지만 AR/VR 붐이 지나간 2010년대 중반 즉 그래프에서 Period5에서는 일반적이지 않은 그래프가 나오게 되었다. 출원인수와 출원 건수가 급격하게 감소한 것이 그 원인이다.
+                </p>
+            </div>
+            <h4> 주요출원인 분석
+                </h4>
+                <img src = '{% static "img/grantperson.png" %}' width="800">
+        
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    </body>
+</html>

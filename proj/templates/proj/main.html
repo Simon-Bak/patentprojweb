@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Main</title>
+    <title>프로젝트 소개</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -22,7 +22,7 @@
         class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary"
         id="navbar"
       >
-        <a class="navbar-brand" href="{% url 'main' %}" id="logo">Python Patent</a>
+        <a class="navbar-brand" href="{% url 'index' %}" id="logo">Python Patent</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -43,10 +43,10 @@
               <a class="nav-link" href="{% url 'info' %}">Python Patent 소개</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'demourl' %}">데모</a>
+              <a class="nav-link" href="{% url 'demo' %}">예시</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">테스트</a>
+              <a class="nav-link" href="{% url 'testurl' %}">테스트</a>
             </li>
           </ul>
         </div>
@@ -139,6 +139,39 @@
               인용/피인용 관계는 특허간의 Bridge로 나타내며, 피인용을 더 많이 할
               수록 큰 사이즈로 표현하는 것을 목표로 한다.
             </p>
+            <h2>
+                <span class="badge badge-pill badge-primary">분석방법</span>
+              </h2>
+              <h4 id="title3">등록년도 분석</h4>
+              <p>
+                  Goolge Patent에서 다운로드 받는 .csv 파일의  컬럼 구조는 다음과 같다.<br>
+                  ('id', 'title', 'assignee', 'inventor/author', 'priority date', 'filing/creation date', 'publication date', 'grant date', 'representative figure link')<br><br>
+                  여기서 출원일은 filing/creation date이고, 등록일은 grant date이다.<br>
+                  그리고 .csv에서는 "yyyy.mm.dd"형태로 기록되어 있고, 변환된 리스트에서는 "yyyy-mm-dd" 형태로 기록되어있다.
+                  따라서 출원년도 분석을 위해서 해당 데이터를 스트링으로 변환하고, 앞의 4문자만 슬라이싱하여 출원일을 출원년도로 변환하였다.<br><br>
+                  등록년도 분석을 위한 처리도 출원년도와 같으나, 출원은 하였으나 등록이 되지 않는 특허들이 존재하여 별도의 처리를 거쳐야한다. 이 경우에는 .csv와 리스트에 **NaN**으로 기록되어 있다. 따라서, 등록년도의 경우 슬라이싱 전에 스트링의 길이를 반환하는 len()함수를 활용하여 길이가 10이 되지 않는다면, 해당 특허를 등록되지 않은 것으로 판단하는 if 구문을 추가하였다.<br><br>
+                  
+                  따라서 년도별 출원/등록건수를 카운트하는 함수 GrantYear()을 제작하였다.<br>
+                  위와 같이 먼저 출원일을 년도로 반환하는 작업을 거친 후, 년도만을 Year라는 리스트에 별도로 저장하였다. 이때는 중복을 고려하지 않았다.
+                  이후, 각 년도별 출원건수를 [yyyy, count]로 저장하는 2차원 리스트 YearOfGrant를 생성한다. 각 년도별 출원/등록건수 산출을 위해 list의 오퍼레이션인 count()를 활용하였다. 또한 추후 작업의 편의성을 위해 YearOfGrant를 일반 리스트가 아닌 numpy의 리스트로 설정하였다. 여기서 리스트의 데이터 타입이 지수 타입으로 되어있어, 데이터 타입을 정수로 만들기 위해 int64로 타입을 지정하였다.<br>
+                  
+                  이를 시각화하기 위해 matplotlib을 사용하였다. 위에서 생성된 리스트가 2차원 리스트이기 때문에 리스트에서 연도를 X축으로, 출원건수를 Y축으로 각각 리스트로 분리하였다.
+                  이후 matplotlib으로 년도별 출원수 그래프를 작성한다.
+              </p>
+              <h4 id="title3">포트폴리오 분석</h4>
+              <p>
+                  출원인별/연도별 출원수를 종합적으로 고려햐여 특허 분석을 진행한다.<br>
+태풍기 -> 발전기 -> 성숙기 -> 퇴조기 -> 부활기의 총 5단계로 구성되어 있다.<br>
+포트폴리오 모델 분석을 이용하여 해당 발명이 어떤 위치에 있는지 분석할 수 있다. 통상적으로 포트폴리오 모델 분석의 그래프는 콤마 형태로 도출된다.
+<br>
+이 분석을 진행하기 위하여, 위에서 진행한 분석과 같은 방법으로 연도별 출원인수와 연도별 출원건수를 도출한다. 이와 동시에 포트폴리오 분석을 진행하는 해당 검색어의 첫 출원 년도와 현재년도 까지의 연도 리스트를 제작한다.
+이후, 보다 더 쉬운 그래프 분석을 위하여 연도 리스트를 4분할 한다.
+<br>
+그래프를 제작하기 위해, X를 연도별 출원인 수, Y를 연도별 출원건수로 하여 matplotlib을 이용해 그래프를 도출한다. 이때 각 구간별로 Matplotlib을 이용하여 그래프의 색상을 다르게한다.
+<br>
+최종적으로 profolio()함수를 제작하였다.
+              </p>
+              
           </div>
         </div>
       </div>

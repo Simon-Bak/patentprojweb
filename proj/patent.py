@@ -1,48 +1,11 @@
-def getCSVURL(URL):
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    from selenium import webdriver
-    import time
-
-    options = webdriver.ChromeOptions()
-    options.add_argument('headless')
-    options.add_argument('window-size=1920x1080')
-    options.add_argument("disable-gpu")
-
-    driver = webdriver.Chrome('./chromedriver', options=options)
-    driver.get(URL)
-    
-    time.sleep(5)
-    URL = driver.find_element_by_xpath('//*[@id="count"]/div[1]/span[2]/a').get_attribute('href')
-    
-    return URL
-
-def filetoList(url):
+def filetoList(name):
     import requests
     import pandas as pd
     
-    #파일 이름지정
-    name = input('파일이름 입력')
-    nameCSV = name+'.csv'
-    
-    while True:
-        a = input("1. 파일이 로컬에 있습니다. 2. Googlepatent로 다운받아야 합니다.")
-        
-        if a == '2':
-        #Google Patent
-            URL = getCSVURL(url)
-            file = open(nameCSV, 'wb')
-            value = requests.get(URL)
-            file.write(value.content)
-            file.close()
-        
-            csvValue = pd.read_csv(nameCSV, skiprows=1)
-            patentList = csvValue[['id', 'title', 'assignee', 'inventor/author', 'priority date', 'filing/creation date', 'publication date', 'grant date', 'representative figure link']].as_matrix()
-            return patentList
-        elif a == '1':
-            csvValue = pd.read_csv(nameCSV, skiprows=1)
-            patentList = csvValue[['id', 'title', 'assignee', 'inventor/author', 'priority date', 'filing/creation date', 'publication date', 'grant date', 'representative figure link']].as_matrix()
-            return patentList
+    nameCSV = '/home/simonbak/patentprojweb/proj/static/csv/'+name+'.csv'
+    csvValue = pd.read_csv(nameCSV, skiprows=1)
+    patentList = csvValue[['id', 'title', 'assignee', 'inventor/author', 'priority date', 'filing/creation date', 'publication date', 'grant date', 'representative figure link']].as_matrix()
+    return patentList
 
 def GrantNum(patentList):
     numOfGrant = 0
@@ -105,7 +68,10 @@ def Portfolio(X):
     import matplotlib.pyplot as plt
     from django.utils import timezone
 
-    pltname = str(timezone.now())+'.png'
+    time = str(timezone.now())
+    temp = len(time)
+    timeslice = time[0:19]
+    pltname = timeslice+'port.png'
     
     Year = []
     YearIndex = []
@@ -190,7 +156,7 @@ def Portfolio(X):
     plt.legend(loc=2)
 
     plt.title('Portfolio')
-    plt.savefig('./'+pltname)
+    plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
 
     return pltname
 
@@ -199,7 +165,10 @@ def grantYearGraph(array):
     import matplotlib.pyplot as plt
     from django.utils import timezone
 
-    pltname = str(timezone.now())+'.png'
+    time = str(timezone.now())
+    temp = len(time)
+    timeslice = time[0:19]
+    pltname = timeslice+'year.png'
 
 
     X = []
@@ -225,18 +194,12 @@ def grantPersonGraph(array, i):
     import platform
     from django.utils import timezone
 
-    pltname = str(timezone.now())+'.png'
+    time = str(timezone.now())
+    temp = len(time)
+    timeslice = time[0:19]
+    pltname = timeslice+'person.png'
 
-    
     top = []
-
-    if platform.system() == 'Windows':
-# 윈도우인 경우
-        font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
-        rc('font', family=font_name)
-    else:    
-# Mac 인 경우
-        rc('font', family='AppleGothic')
     
     plt.rcParams['axes.unicode_minus'] = False
     
@@ -256,185 +219,6 @@ def grantPersonGraph(array, i):
     plt.rcParams['lines.linewidth'] = 10
     plt.rcParams.update({'font.size': 30})
     plt.bar(X, Y, width = 0.7, color="blue")
-    plt.title('주요 출원인 출원수')
-    plt.savefig('./'+pltname)
-    return pltname
-
-def findCitationNoHead(patentURL):
-    from urllib.request import urlopen
-    from bs4 import BeautifulSoup
-    from selenium import webdriver
-    import time
-    
-    options = webdriver.ChromeOptions()
-    options.add_argument('headless')
-    options.add_argument('window-size=1920x1080')
-    options.add_argument("disable-gpu")
-    
-    driver = webdriver.Chrome('./chromedriver', options=options)
-    driver.get(patentURL)
-    
-    time.sleep(2)
-
-    html = driver.page_source
-    soup = BeautifulSoup(html, "html.parser")
-    body = soup.find('body')
-    
-    a = body.find('search-app')
-    b = a.find('search-result')
-    c = b.find('search-ui')
-    d = c.find('div', id='content')
-    e = d.find('div', class_='layout horizontal style-scope search-ui')
-    f = e.find('div', id='main')
-    g = f.find('div', class_='style-scope search-result')
-    h = g.find('div', id='mainContainer')
-    i = h.find('result-container')
-    j = i.find('patent-result')
-    k = j.find('div', class_='layout horizontal style-scope patent-result')
-    l = k.find('div', id='wrapper')
-    m = l.find('div', class_='footer style-scope patent-result')
-
-    #인용
-    citation1 = m.find('div', class_="responsive-table style-scope patent-result")
-    citation2 = citation1.find('div', class_='table style-scope patent-result')
-
-    citation3 = citation2.findAll('a', id='link')
-
-    CitationID = []
-    num1 = 0
-    num2 = 0
-
-    for i in range(0, len(citation3)):
-        patentID = str(citation3[i])
-        for j in range(1,len(patentID)-1):
-        
-            if patentID[j] == '>':
-                num1 = j
-            elif patentID[j] == '<':
-                num2 = j
-                CitationID.append(patentID[num1+1:num2])
-            
-    #피인용
-    cited1 = m.findAll('div', class_="responsive-table style-scope patent-result")
-    cited2 = cited1[1].find('div', class_='table style-scope patent-result')
-    cited3 = cited2.findAll('a', id='link')
-
-    CitedID = []
-    num1 = 0
-    num2 = 0
-
-    for i in range(0, len(cited3)):
-        patentID = str(cited3[i])
-        for j in range(1,len(patentID)-1):
-        
-            if patentID[j] == '>':
-                num1 = j
-            elif patentID[j] == '<':
-                num2 = j
-                CitedID.append(patentID[num1+1:num2])
-    return CitationID, CitedID
-
-def citationCSV(patentURL, CitationID, CitedID):
-    import pandas as pd
-    import numpy as np
-    prefileName = input('파일명을 입력하세요')
-    
-    fileName = prefileName+".csv"
-    tocsv = np.array([[patentURL, CitationID, CitedID]])
-    df = pd.DataFrame(tocsv)
-    df.to_csv(fileName, mode='a', header=False, index=False)
-
-def citedGraph(patentList):
-    import pandas as pd
-    import numpy as np
-    import matplotlib.pyplot as plt
-    from matplotlib import font_manager, rc
-    import platform
-    from django.utils import timezone
-
-    pltname = str(timezone.now())+'.png'
-    
-    Person = []
-    count = []
-    realCount = []
-    radius = []
-    X = []
-    Y = []
-    x = []
-    y = []
-    YearCount = []
-
-    PersonSearch = input('검색하고 싶은 출원인을 입력하세요')
-    PersonCount = 0
-    
-    for i in range(0, len(patentList)):
-        if patentList[i][2] == PersonSearch:
-            PersonCount = PersonCount + 1
-
-    for i in range(0, len(patentList)):
-        if patentList[i][2] == PersonSearch:
-            count.append([patentList[i][0], int(patentList[i][5][:4]), patentList[i][8]])
-    
-    print("Loading... 총 " + str(PersonCount)+'개')
-    NUM = PersonCount
-    for i in range(0, NUM):
-        patentURL = count[i][2]
-        temp = findCitationNoHead(patentURL)
-        cited = len(temp[1])
-        realCount.append([count[i][1], count[i][0], cited])
-        print(str(i+1)+'/'+str(NUM))
-
-    realCount.sort(key=lambda x:-x[0])
-
-
-    for i in range(0, len(realCount)):
-        radius.append(realCount[i][2]*100)
-        X.append(realCount[i][0])
-        Y.append(realCount[i][2])
-
-    # plt 한글 입력 지정
-    if platform.system() == 'Windows':
-    # 윈도우인 경우
-        font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
-        rc('font', family=font_name)
-    else:    
-    # Mac 인 경우
-        rc('font', family='AppleGothic')
-    
-    plt.rcParams['axes.unicode_minus'] = False
-
-
-    for i in range(0, len(realCount)):
-        if x.count(realCount[i][0]) == 0:
-            x.append(realCount[i][0])
-            y.append(realCount[i][2])
-        else:
-            index = x.index(realCount[i][0])
-            y[index] = int(y[index] + realCount[i][2])
-
-    for i in range(0, len(YearCount)):
-        x.append(YearCount[i][0])
-        y.append(YearCount[i][1])
-
-    plt.rcParams["figure.figsize"] = (50,50)
-    plt.rcParams.update({'font.size': 80})
-    plt.scatter(X, Y, s=radius)
-    plt.title(PersonSearch+' 특허 인용 지수 분석')
-    plt.show()
-
-    realCount.sort(key=lambda x:-x[2])
-    print("TOP 3 인용")
-    for i in range(0,3):
-        print(realCount[i])
-
-
-    plt.rcParams["figure.figsize"] = (50,50)
-    plt.rcParams['lines.linewidth'] = 10
-    plt.rcParams.update({'font.size': 80})
-    plt.plot(x,y)
-    plt.xlabel('Year')
-    plt.ylabel('Num')
-    
-    plt.title(PersonSearch+' 연도별 인용건수 분석')
-    plt.savefig('./'+pltname)
+    plt.title('inventor')
+    plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
     return pltname

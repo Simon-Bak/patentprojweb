@@ -9,6 +9,7 @@ from . import demo
 import json
 
 # Create your views here.
+URL = ''
 def index(request):
     return render(request, 'proj/index.html')
 
@@ -18,34 +19,41 @@ def main(request):
 def info(request):
     return render(request, 'proj/tech.html')
 
-def demourl(request):
-    if request.method == "POST":
-        word0 = request.POST['word0']
-        word1 = request.POST['word1']
-        word2 = request.POST['word2']
-        wordandor01 = request.POST['wordandor01']
-        wordandor02 = request.POST['wordandor02']
-        
-        status = request.POST['status']
-        country = request.POST['country']
-
-        person0 = request.POST['person0']
-        person1 = request.POST['person1']
-        person2 = request.POST['person2']
-        personandor1 = request.POST['personandor0']
-        personandor2 = request.POST['personandor1']
-
-        return render(request, 'proj/index.html')
-
-    return render(request, 'proj/demourl.html')
-
 def demo(request):
-    return render(request, 'proj/index.html')
+    return render(request, 'proj/demo.html')
+
+def testurl(request):
+    if request.method == "POST":
+        name = request.POST['name']
+
+        if name == 'AR':
+            name = 'AR'
+        elif name == 'VR':
+            name = 'VR'
+        elif name == "GPU":
+            name = 'GPU'
+        request.session['URL'] = name
+        return redirect('result')
+
+    return render(request, 'proj/testurl.html')
+
+def result(request):
+    name = request.session['URL']
+    plist = patent.filetoList(name)
+
+    portName = patent.Portfolio(plist)
+    grantNum = patent.GrantNum(plist)
+    grantyear = patent.GrantYear(plist)
+    grantperson = patent.GrantPerson(plist)
+
+    imageName = demo.grantYearGraph(grantyear) 
+
+    return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName,})
 
 def test(request):
     patentlist = demo.filetoList()
     testvalue = demo.GrantYear(patentlist)
-    imageName = demo.grantYearGraph(testvalue)
+    imageName = demo.grantYearGraph(testvalue)  
     imageName = 'img/'+ imageName
     tests = {
         'url' : "{% static" + imageName + "%}"
