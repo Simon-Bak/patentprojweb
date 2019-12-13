@@ -5,7 +5,6 @@ from .forms import URLForm
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from . import patent
-from . import demo
 import json
 
 # Create your views here.
