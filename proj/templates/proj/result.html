@@ -61,16 +61,9 @@
                           한글이 깨지는 문제가 있습니다.
                           <br>
                           <img src="{% static personsrc %}" width="800px">
-                        <br>
-                        {{ person1 }}
-                        <br>
-                        {{ person2 }}
-                        <br>
-                        {{ person3 }}
-                        <br>
-                        {{ person4 }}
-                        <br>
-                        {{ person5 }}
+                        {{% for personname in person  %}}
+                            {{ personname }}
+                        {{% endfor %}}
                           <h4>포트폴리오 분석</h4>
       <img src="{% static portsrc %}" width="800px">
 </div>
