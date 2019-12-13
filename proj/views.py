@@ -49,4 +49,10 @@ def result(request):
     portName = 'img/' + portName
     yearimageName = 'img/' + yearimageName
     personimageName = 'img/' + personimageName
-    return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName, 'yearsrc':yearimageName, 'personsrc' : personimageName, 'person' : personName})
+    
+    person1 = personName[0]
+    person2 = personName[1]
+    person3 = personName[2]
+    person4 = personName[3]
+    person5 = personName[4]
+    return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName, 'yearsrc':yearimageName, 'personsrc' : personimageName, 'person1' : person1, 'person2' : person2, 'person3' : person3, 'person4' : person4, 'person5' : person5})
