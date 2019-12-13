@@ -157,7 +157,7 @@ def Portfolio(X):
 
     plt.title('Portfolio')
     plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
-
+    plt.clf()
     return pltname
 
 
@@ -186,6 +186,7 @@ def grantYearGraph(array):
     
     plt.title('Grant Num of Year')
     plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
+    plt.clf()
     return pltname
 
 def grantPersonGraph(array, i):
@@ -221,4 +222,5 @@ def grantPersonGraph(array, i):
     plt.bar(X, Y, width = 0.7, color="blue")
     plt.title('inventor')
     plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
+    plt.clf()
     return pltname

@@ -51,14 +51,3 @@ def result(request):
     yearimageName = 'img/' + yearimageName
     personimageName = 'img/' + personimageName
     return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName, 'yearsrc':yearimageName, 'personsrc' : personimageName})
-
-def test(request):
-    patentlist = demo.filetoList()
-    testvalue = demo.GrantYear(patentlist)
-    imageName = demo.grantYearGraph(testvalue)  
-    imageName = 'img/'+ imageName
-    tests = {
-        'url' : "{% static" + imageName + "%}"
-    }
-    return HttpResponse(json.dumps(tests), content_type='application/json')
-   
