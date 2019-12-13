@@ -42,11 +42,11 @@ def result(request):
     plist = patent.filetoList(name)
 
     portName = patent.Portfolio(plist)
-    grantNum = patent.GrantNum(plist)
     grantyear = patent.GrantYear(plist)
     grantperson = patent.GrantPerson(plist)
 
-    imageName = demo.grantYearGraph(grantyear) 
+    yearimageName = patent.grantYearGraph(grantyear)
+    personimageName = patent.grantPersonGraph(grantperson, 5)
 
     return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName,})
 
