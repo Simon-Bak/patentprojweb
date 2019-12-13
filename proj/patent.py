@@ -179,7 +179,7 @@ def grantYearGraph(array):
         Y.append(array[i][1])  
     plt.rcParams["figure.figsize"] = (100,100)
     plt.rcParams['lines.linewidth'] = 10
-    plt.rcParams.update({'font.size': 150})
+    plt.rcParams.update({'font.size': 30})
     plt.plot(X,Y)
     plt.xlabel('Year')
     plt.ylabel('Num')
