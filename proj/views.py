@@ -48,7 +48,9 @@ def result(request):
     yearimageName = patent.grantYearGraph(grantyear)
     personimageName = patent.grantPersonGraph(grantperson, 5)
     portName = 'img/' + portName
-    return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName,})
+    yearimageName = 'img/' + yearimageName
+    personimageName = 'img/' + personimageName
+    return render(request, 'proj/result.html',{'URL' : URL, 'portsrc':portName, 'yearsrc':yearimageName, 'personsrc' : personimageName})
 
 def test(request):
     patentlist = demo.filetoList()
