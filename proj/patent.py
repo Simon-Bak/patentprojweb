@@ -155,7 +155,7 @@ def Portfolio(X):
     plt.ylabel('Num of Filing')
     plt.legend(loc=2)
 
-    plt.title('Portfolio ' + time[:13])
+    plt.title('Portfolio ' + time[:16])
     plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
     plt.clf()
     return pltname
@@ -184,7 +184,7 @@ def grantYearGraph(array):
     plt.xlabel('Year')
     plt.ylabel('Num')
     
-    plt.title('Grant Num of Year ' + time[:13])
+    plt.title('Grant Num of Year ' + time[:16])
     plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
     plt.clf()
     return pltname
@@ -220,7 +220,7 @@ def grantPersonGraph(array, i):
     plt.rcParams['lines.linewidth'] = 10
     plt.rcParams.update({'font.size': 30})
     plt.bar(X, Y, width = 0.7, color="blue")
-    plt.title('inventor ' + time[:13])
+    plt.title('inventor ' + time[:16])
     plt.savefig('/home/simonbak/patentprojweb/proj/static/img/'+pltname)
     plt.clf()
     return pltname, X
